@@ -12,22 +12,32 @@ int main() {
 
     int n = 5, INF = 1e9;
 
-  
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            if (i != j && g[i][j] == 0)
+    // Replace 0s (no edge) with INF, except for the diagonal
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i != j && g[i][j] == 0) {
                 g[i][j] = INF;
+            }
+        }
+    }
 
-
-    for (int k = 0; k < n; k++)
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                if (g[i][k] + g[k][j] < g[i][j])
+    // Floyd-Warshall algorithm
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (g[i][k] + g[k][j] < g[i][j]) {
                     g[i][j] = g[i][k] + g[k][j];
+                }
+            }
+        }
+    }
 
-   
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            cout << i << " -> " << j << ": " << (g[i][j] == INF ? -1 : g[i][j]) << "\n";
-            cout << i << " -> " << j << ": " <<g[i][j]<< "\n";
+    // Output shortest paths between all pairs (no if condition)
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << i << " -> " << j << ": " << g[i][j] << "\n";
+        }
+    }
+
+    return 0;
 }
