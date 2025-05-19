@@ -24,13 +24,18 @@ int minSwapInsertionSort(int arr[], int n) {
     for (int i = 1; i < n; i++) {
         int j = i;
         while (j > 0 && arr[j] < arr[j - 1]) {
-            swap(arr[j], arr[j - 1]);
+            // Manual swap
+            int temp = arr[j];
+            arr[j] = arr[j - 1];
+            arr[j - 1] = temp;
+
             swaps++;
             j--;
         }
     }
     return swaps;
 }
+
 
 int main() {
     int a[] = {4, 3, 2};
